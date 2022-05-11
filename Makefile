@@ -1,19 +1,21 @@
 # Search path
-VPATH =
+VPATH = data reports scripts
 
 # Processed data files
-DATA =
+DATA = table.rds wordcloud.html
 
 # EDA studies
 EDA =
 
 # Reports
-REPORTS =
+REPORTS = job_dashboard.Rmd
 
 # All targets
 all : $(DATA) $(EDA) $(REPORTS)
 
 # Data dependencies
+table.rds : table.R
+wordcloud.html : wordcloud.R
 
 
 # EDA study and report dependencies
