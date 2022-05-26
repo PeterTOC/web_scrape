@@ -22,7 +22,7 @@ file_out <- "~/Projects/web_scrape/data/table.rds"
 profvis({
 
 
-html <- content(GET(url, timeout(60)))
+html <- read_html(url)
 
 
 job_title <- html |>
@@ -65,23 +65,17 @@ extract_description <- function(x) {
 
   cat(".") # stone age progress bar
 
-  html2 <- content(GET(x, timeout(60)))
+  html2 <- read_html(x)
 
   job_description <- html2 |>
     html_nodes(xpath = '//*[@id="jobDescriptionText"]') |>
     html_text() |>
     str_squish()
 
-  count_r <- html2 |>
-    html_nodes(xpath = '//*[@id="jobDescriptionText"]') |>
-    html_text() |>
-    str_squish() |>
+  count_r <- job_description |>
     str_count('[./ ,]R{1}[./ ,]')
 
-  r_present <- html2 |>
-    html_nodes(xpath = '//*[@id="jobDescriptionText"]') |>
-    html_text() |>
-    str_squish() |>
+  r_present <- job_description |>
     str_detect('[./ ,]R{1}[./ ,]')
 
 
